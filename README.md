@@ -81,6 +81,40 @@ npx denchclaw start --skip-daemon-install
 
 ---
 
+### Running on Windows / Docker
+
+DenchClaw is primarily optimized for macOS. On Windows, the recommended way to run it is via **Docker** to provide the necessary Unix-like environment and dependencies (like `lsof`).
+
+#### Quick Start with Docker
+
+1. **Clone the repository** (if you haven't already):
+   ```bash
+   git clone https://github.com/DenchHQ/DenchClaw.git
+   cd denchclaw
+   ```
+
+2. **Run with Docker Compose**:
+   ```bash
+   docker compose up -d
+   ```
+
+3. **Access the Web UI**:
+   Open [http://localhost:3100](http://localhost:3100) in your browser.
+
+The Docker setup runs DenchClaw in **daemonless mode** (`DENCHCLAW_DAEMONLESS=1`) and bypasses interactive onboarding prompts. Configuration and data are persisted in a Docker volume named `denchclaw_data`.
+
+#### Native Windows (Experimental)
+
+If you prefer to run natively on Windows without Docker, you must set `DENCHCLAW_DAEMONLESS=1` and ensure `lsof` is available in your PATH (e.g., via Git Bash or MSYS2).
+
+```bash
+# In Git Bash
+export DENCHCLAW_DAEMONLESS=1
+npx denchclaw bootstrap --non-interactive --yes
+```
+
+---
+
 ## Development
 
 ```bash

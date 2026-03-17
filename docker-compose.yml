@@ -1,0 +1,17 @@
+services:
+  denchclaw:
+    build: .
+    container_name: denchclaw
+    ports:
+      - "3100:3100"
+      - "19001:19001"
+    volumes:
+      - denchclaw_data:/root/.openclaw-dench
+    environment:
+      - DENCHCLAW_DAEMONLESS=1
+      - HOSTNAME=0.0.0.0
+    tty: true
+    restart: unless-stopped
+
+volumes:
+  denchclaw_data:

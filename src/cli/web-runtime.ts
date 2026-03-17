@@ -820,7 +820,7 @@ export function startManagedWebRuntime(params: {
       ...params.env,
       ...gatewayAuthEnv,
       PORT: String(params.port),
-      HOSTNAME: "127.0.0.1",
+      HOSTNAME: process.env.HOSTNAME || "127.0.0.1",
       OPENCLAW_GATEWAY_PORT: String(params.gatewayPort),
     },
   });
