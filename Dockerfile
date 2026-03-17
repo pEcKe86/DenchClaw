@@ -12,6 +12,7 @@ RUN apt-get update && apt-get install -y \
     build-essential \
     python3 \
     git \
+    socat \
     && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
@@ -44,6 +45,12 @@ ENV NODE_ENV=production
 EXPOSE 3100
 EXPOSE 19001
 
-# Start DenchClaw by explicitly calling the bootstrap command
-# We use a shell command to ensure we can tail the log file and keep the container alive
-CMD node denchclaw.mjs bootstrap --non-interactive --yes && tail -f /root/.openclaw-dench/logs/web-app.log
+# Start DenchClaw by:
+# 1. Bootstrapping profile and dependencies
+# 2. Starting OpenClaw Gateway in background
+# 3. Using socat to bridge Gateway (localhost:19001) to all interfaces (0.0.0.0:19001) for host access
+# 4. Tailing the web log to keep container alive
+CMD node denchclaw.mjs bootstrap --non-interactive --yes && \
+    (openclaw --profile dench gateway --port 19001 &) && \
+    (socat TCP-LISTEN:19001,fork,reuseaddr,bind=0.0.0.0 TCP:127.0.0.1:19001 &) && \
+    tail -f /root/.openclaw-dench/logs/web-app.log
