@@ -2330,7 +2330,7 @@ export async function bootstrapCommand(
     "onboard",
     ...(daemonless ? [] : ["--install-daemon"]),
     "--gateway-bind",
-    "loopback",
+    "any",
     "--gateway-port",
     String(gatewayPort),
   ];

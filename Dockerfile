@@ -47,10 +47,8 @@ EXPOSE 19001
 
 # Start DenchClaw by:
 # 1. Bootstrapping profile and dependencies
-# 2. Starting OpenClaw Gateway in background
-# 3. Using socat to bridge Gateway (localhost:19001) to all interfaces (0.0.0.0:19001) for host access
-# 4. Tailing the web log to keep container alive
+# 2. Starting OpenClaw Gateway in background (now binds to 0.0.0.0 via patched bootstrap)
+# 3. Tailing the web log to keep container alive
 CMD node denchclaw.mjs bootstrap --non-interactive --yes && \
-    (openclaw --profile dench gateway --port 19001 &) && \
-    (socat TCP-LISTEN:19001,fork,reuseaddr,bind=0.0.0.0 TCP:127.0.0.1:19001 &) && \
+    (openclaw --profile dench gateway --port 19001 --gateway-bind any &) && \
     tail -f /root/.openclaw-dench/logs/web-app.log
