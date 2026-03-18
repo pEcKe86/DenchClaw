@@ -98,10 +98,12 @@ DenchClaw is primarily optimized for macOS. On Windows, the recommended way to r
    docker compose up -d
    ```
 
+   *Note: On first run, the container will bootstrap OpenClaw and install the web runtime. This may take a minute.*
+
 3. **Access the Web UI**:
    Open [http://localhost:3100](http://localhost:3100) in your browser.
 
-The Docker setup runs DenchClaw in **daemonless mode** (`DENCHCLAW_DAEMONLESS=1`) and bypasses interactive onboarding prompts. Configuration and data are persisted in a Docker volume named `denchclaw_data`.
+The Docker setup runs DenchClaw in **daemonless mode** (`DENCHCLAW_DAEMONLESS=1`). Configuration and data are persisted in a Docker volume named `denchclaw_data`.
 
 #### Native Windows (Experimental)
 

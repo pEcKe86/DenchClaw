@@ -10,6 +10,7 @@ services:
     environment:
       - DENCHCLAW_DAEMONLESS=1
       - HOSTNAME=0.0.0.0
+      - DENCH_CLOUD_API_KEY=your_key_here
     tty: true
     restart: unless-stopped
 
